@@ -1,0 +1,829 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    background-color: #707070;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    height: 100%;
+}
+
+.menu-item {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.logout {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    margin: 10px 0;
+    margin-top: auto;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.menu-item:hover {
+    background-color: #005fc5;
+}
+
+.logout:hover {
+    background-color: #005fc5;
+}
+
+
+.content {
+    flex-grow: 1;
+    font-size: 18px;
+    color: #333;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.course-list {
+    display: flex;
+    flex-direction: column;
+    max-height: 750px;
+    overflow-y: auto;
+}
+
+.course-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.course-item:hover {
+    transform: scale(1.005);
+    background-color: #d1d0d0;
+}
+
+.course-item h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.course-item p {
+    font-size: 14px;
+    color: #555;
+}
+
+.course-edit-btn{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.course-edit-btn:hover {
+    background-color: #005fc5;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.delete-btn:hover {
+    background-color: #e53935;
+}
+
+.del-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.del-btn:hover {
+    background-color: #e53935;
+}
+
+.set-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.set-btn:hover {
+    background-color: #45a049;
+}
+
+.rep-btn {
+    background-color: #d1c842;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.rep-btn:hover {
+    background-color: #a2a93a;
+}
+
+
+.add-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 13px;
+    width: 120px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    left: 30px;
+}
+
+.add-btn:hover {
+    background-color: #45a049;
+}
+
+.modal {
+    display: none; /* 默认隐藏模态框 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 背景色 */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content select {
+    width: calc(100% - 10px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* 输入框和按钮样式 */
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+input[type="number"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+input[type="datetime-local"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2px;
+}
+
+.schedule-table th, .schedule-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.schedule-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.schedule-item {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-item:hover {
+    background-color: #e5e5e5;
+}
+
+.schedule-details {
+    display: none;
+    background-color: #f7f7f7;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    border-top: none;
+}
+
+.schedule-table-container {
+    max-height: 750px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #005fc5;
+}
+
+.edit-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    z-index: 1000;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.edit-model{
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.edit-modal button[type="button"] {
+    background-color: #f44336;
+    margin-top: 10px;
+}
+
+.edit-modal button[type="button"]:hover {
+    background-color: #e53935;
+}
+
+.edit-modal input, 
+.edit-modal select, 
+.edit-modal button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-modal input, 
+.edit-modal select {
+    width: 100%;
+}
+
+.employee-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ccc;
+}
+
+.employee-list {
+    max-height: 750px; 
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+}
+
+.employee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.employee-item:hover {
+    background-color: #d9d9d9;
+}
+
+.employee-item span {
+    flex: 1; 
+    text-align: left;
+}
+
+.employee-id,
+.employee-name,
+.employee-gender {
+    flex: 1;
+}
+
+.employee-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-table th,
+.employee-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.employee-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.employee-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+
+
+.save-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #45a049;
+}
+
+
+/* 角色选择样式 */
+.role-selection {
+    margin-bottom: 20px;
+}
+
+.role-selection label {
+    font-size: 10px;
+}
+
+/* 搜索框样式 */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 300px;
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-bar button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* 课表列表样式 */
+.schedule-list {
+    margin-top: 20px;
+}
+
+.schedule-item {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.schedule-item div {
+    margin-bottom: 5px;
+}
+
+/* 排课按钮样式 */
+.schedule-list button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.schedule-list .delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.schedule-list .delete-button:hover {
+    background-color: #c82333;
+}
+
+.schedule-list .add-schedule-button {
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+}
+
+.schedule-list .add-schedule-button:hover {
+    background-color: #218838;
+}
+
+/* 角色选择单选框样式 */
+.role-selection label {
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.role-selection input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* 课表查询结果显示样式 */
+#scheduleList p {
+    color: #333;
+    font-size: 16px;
+}
+
+#scheduleList p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* 公司列表样式 */
+.company-list {
+    margin-top: 20px;
+    max-height: 750px; /* 设置公司列表的最大高度 */
+    overflow-y: auto;  /* 启用垂直滚动 */
+    border: 1px solid #ccc; /* 给公司列表加个边框，区分内容区域 */
+    border-radius: 5px; /* 圆角效果 */
+    padding: 10px;
+}
+
+/* 单个公司项样式 */
+.company-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.company-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* 公司标题行样式 */
+.company-list-header {
+    display: flex;
+    justify-content: flex-start;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px; /* 增加标题与公司列表之间的间距 */
+    border-radius: 5px;
+}
+
+/* 公司名样式 */
+.company-name {
+    font-size: 16px;
+}
+
+/* 单个公司行样式 */
+.company-row {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+/* 代表列表样式 */
+.representative-list-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #ebebeb;
+    border-top: 1px solid #ccc; /* 添加分隔线 */
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* 代表列表中每列样式 */
+.representative-list-header span {
+    flex: 1;
+    text-align: center;  /* 内容居中 */
+}
+
+/* 代表项样式 */
+.representative-item {
+    display: flex;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* 代表项中每个元素的样式 */
+.representative-item span {
+    flex: 1;
+    text-align: center;  /* 内容居中 */
+    padding: 0 10px;
+}
+
+/* 代表项和代表列表标题的样式一致 */
+.representative-list-header span,
+.representative-item span {
+    font-size: 14px;
+    min-width: 100px; /* 确保每列最小宽度一致 */
+}
+
+/* 隐藏代表信息区域 */
+#representativeList-0 {
+    display: none;
+}
+
+/* 给代表信息列表增加滚动条 */
+.representative-list {
+    max-height: 300px; /* 设置最大高度 */
+    overflow-y: auto;  /* 启用垂直滚动 */
+    margin-top: 10px;
+    border-top: 1px solid #ccc;  /* 添加分隔线 */
+    padding: 10px;
+}
+
+/* 确保每个代表信息项的高度一致 */
+.representative-item {
+    min-height: 40px; /* 设置每项最小高度 */
+}
+
+/* 鼠标悬停效果 */
+.company-row:hover {
+    background-color: #e0e0e0;  /* 设置公司项悬停时的变色 */
+}
+
+.representative-item:hover {
+    background-color: #f9f9f9;  /* 设置代表项悬停时的变色 */
+}
+
+/* 为公司列表和代表列表添加滚动条样式 */
+.company-list,
+.representative-list {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #e0e0e0;  /* 设置滚动条颜色 */
+}
+
+#registrationForm {
+    margin-top: 20px;
+}
+
+#representativeSelect label {
+    margin-left: 5px;
+}
+
+#summary p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* 确保每个代表项有一定的间隔 */
+#representativeSelect label {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;  /* 保证每个代表项之间有间隔 */
+    font-size: 14px;
+}
+
+/* 增加下拉选择框的高度 */
+#companySelect, #courseSelect {
+    height: 28px; /* 增加选择框的高度 */
+    font-size: 13px; /* 增加字体大小 */
+    padding: 5px 10px; /* 增加内边距，提升选择框的可点击区域 */
+    border-radius: 5px; /* 圆角效果 */
+    border: 1px solid #ccc; /* 设置边框 */
+}
+
+/* 增大代表选择框的大小 */
+#representativeSelect {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+    font-size: 16px; /* 增大字体 */
+}
+
+/* 为代表选择框中的每个项增加间隔 */
+#representativeSelect label {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    font-size: 16px; /* 增大字体 */
+}
+
+.record-model {
+    max-height: 60%; /* 限制内容区高度 */
+    overflow-y: auto; /* 添加垂直滚动条 */
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.rep-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    border-bottom: 2px solid #ccc;
+}
+
+.rep-list {
+    max-height: 750px; 
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+}
+
+.rep-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.rep-item:hover {
+    background-color: #d9d9d9;
+}
+
+.rep-item span {
+    flex: 1; 
+    text-align: left;
+}
+
+.rep-id,
+.rep-name {
+    flex: 1;
+}
+
+.rep-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.rep-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rep-table th,
+.rep-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.rep-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.rep-table tr:hover {
+    background-color: #f9f9f9;
+}

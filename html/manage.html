@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程菜单</title>
+    <link rel="stylesheet" href="../css/manage_styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="menu-item" id="course-library" onclick="navigateTo('课程库')">课程库</div>
+            <div class="menu-item" id="course-schedule" onclick="navigateTo('课程安排表')">课程安排表</div>
+            <div class="menu-item" id="staff-library" onclick="navigateTo('员工信息')">员工信息</div>
+            <div class="menu-item" id="rep-library" onclick="navigateTo('代表信息')">代表信息</div>
+            <div class="menu-item" id="course-enroll" onclick="navigateTo('课程报名')">课程报名</div>
+            <div class="menu-item" id="class-query" onclick="navigateTo('课表查询')">课表查询</div>
+            <div class="logout" id="logout" onclick="logout()">登出</div>
+        </div>
+        <div class="content" id="content">
+            <h2>欢迎来到菜单</h2>
+            <p>请选择一个菜单项。</p>
+        </div>
+    </div>
+
+    <div id="addCourseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>添加课程</h2>
+            <form id="addCourseForm">
+                <label for="courseName">课程名:</label>
+                <input type="text" id="courseName" name="courseName" required><br><br>
+
+                <label for="courseDescription">课程描述:</label>
+                <textarea id="courseDescription" name="courseDescription" required></textarea><br><br>
+
+                <button type="submit">提交</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editCourseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCourseEditModal()">&times;</span>
+            <h2>编辑课程</h2>
+            <form id="editCourseForm">
+                <label for="editCourseName">课程号:</label>
+                <input type="text" id="editCourseId" name="editCourseName" readonly="readonly" required><br><br>
+
+                <label for="editCourseName">课程名:</label>
+                <input type="text" id="editCourseName" name="editCourseName" required><br><br>
+    
+                <label for="editCourseDescription">课程描述:</label>
+                <textarea id="editCourseDescription" name="editCourseDescription" required></textarea><br><br>
+    
+                <button type="button" onclick="saveEditCourse()">保存</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="setCourseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSetCourseModal()">&times;</span>
+            <h2>新增安排</h2>
+            <form id="setCourseForm">
+                <label for="course-select">选择课程</label>
+                <select id="course-select" required>
+                    <option value="" disabled selected>请选择课程</option>
+                </select>
+    
+                <label for="course-location">授课地点</label>
+                <input type="text" id="course-location" placeholder="请输入授课地点" required />
+    
+                <label for="course-time">授课时间</label>
+                <input type="datetime-local" id="course-time" placeholder="请输入授课时间(YYYY-MM-DD HH-MM-SS)" required />
+    
+                <label for="course-capacity">课程容量</label>
+                <input type="number" id="course-capacity" placeholder="请输入课程容量" min="1" required />
+    
+                <label for="course-price">课程单价</label>
+                <input type="number" id="course-price" placeholder="请输入课程单价" min="0" step="0.01" required />
+    
+                <button type="button" class="save-btn" onclick="saveCourseSettings()">保存设置</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="repModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRepModal()">&times;</span>
+            <h2>代表列表</h2>
+            <form id="scheduleForm">
+                <div class="rep-table-container">
+                    <table class="rep-table">
+                        <thead>
+                            <tr>
+                                <th>代表编号</th>
+                                <th>姓名</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rep-list">
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeScheduleModal()">&times;</span>
+            <h2>排课设置</h2>
+            <form id="scheduleForm">
+                <div class="employee-table-container">
+                    <table class="employee-table">
+                        <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>员工编号</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employee-list">
+                        </tbody>
+                    </table>
+                </div>
+                <button type="button" class="save-btn" onclick="saveSchedule()">保存排课</button>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <script src="../js/manage_script.js"></script>
+</body>
+</html>
